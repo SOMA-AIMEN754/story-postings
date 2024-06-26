@@ -1,0 +1,225 @@
+body {
+    background-color: #dcdcdc;
+}
+
+nav {
+    border-bottom: 2px solid #737f7d;
+    background-color: #dcdcdc;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+.searchinput {
+    background-color: #0b0e61;
+    color: #fff;
+}
+
+.searchinput:active {
+    background-color: #272976;
+    color: #fff;
+}
+
+.searchinput:focus {
+    background-color: #272976;
+    color: #fff;
+}
+
+.searchinput::placeholder {
+    color: #fff;
+}
+
+.searchbtn {
+    background-color: #0b0e61;
+}
+
+.searchbtn:hover {
+    background-color: #272976;
+}
+
+.searchbtn img {
+    height: 25px;
+}
+
+.userdetails {
+    color: #0b0e61;
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 25px;
+}
+
+.usersessionimg {
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+}
+
+.postform textarea {
+    background-color: #bebbb0;
+    border: none;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+}
+
+.postform textarea:focus {
+    background-color: #bebbb0;
+    border: none !important;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.postform textarea:active {
+    background-color: #bebbb0 !important;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.postform .postbtn {
+    background-color: #737f7d;
+    color: #e5e4e3;
+    font-weight: 600;
+}
+.postform .postbtn:hover {
+    background-color: #737f7daa;
+    color: #e5e4e3;
+    font-weight: 600;
+}
+
+.postings hr {
+    border: 2px solid #737f7d;
+
+}
+.heading{
+    color: #0b0e61;
+}
+.postuserdetails{
+    background-color: #737f7d;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.postuserdetails img{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.postcontent{
+    background-color: #bebbb0;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 25px;
+    color: #737f7d;
+}
+.postcontent{
+    font-weight: 500;
+    font-size: 17px;
+}
+.postreactbtn{
+    background-color: #737f7d;
+    color: #e5e4e3;
+    font-weight: 600;
+}
+.postreactbtn:hover{
+    background-color: #737f7daa;
+    color: #e5e4e3;
+    font-weight: 600;
+}
+
+.loginmaindiv{
+    height: 100vh;
+    width: 100vw;
+}
+.loginformdiv{
+    border: none;
+    border-radius: 5px;
+    width: 500px !important;
+    background-color: #bebbb0;
+    color: #fff;
+}
+.loginformdiv input{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+.loginformdiv input:focus{
+    border: none;
+}
+.loginformdiv input:active{
+    border: none;
+}
+.loginformdiv button{
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: #737f7d;
+    font-weight: 600;
+    color: #fff;
+}
+.loginformdiv button:hover{
+    background-color: #737f7daa;
+}
+.commentsection{
+    border: 1px solid #737f7d;
+    margin: 20px;
+    padding: 10px;
+}
+.commentsection textarea{
+    background-color: #bebbb0;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+.commentsection button{
+    background-color: #737f7d;
+    color: #e5e4e3;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+.reply-form{
+    padding: 20px;
+}
+.commentform{
+    padding: 20px;
+}
+.commentform textarea{
+    background-color: #bebbb0;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+.commentform button{
+    background-color: #737f7d;
+    color: #e5e4e3;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+.share-form{
+    padding: 20px;
+}
+.share-form textarea{
+    background-color: #bebbb0;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+.share-form button{
+    background-color: #737f7d;
+    color: #e5e4e3;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+.usersreviews{
+    padding: 5px;
+}
