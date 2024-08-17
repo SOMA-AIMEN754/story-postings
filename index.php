@@ -22,9 +22,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['like_post_id'])) {
         $stmt = $pdo->prepare('DELETE FROM likes WHERE user_id = ? AND post_id = ?');
         $stmt->execute([$userId, $postId]);
     } else {
-        // Like
-        $stmt = $pdo->prepare('INSERT INTO likes (user_id, post_id) VALUES (?, ?)');
+
+        $dstmt = $pdo->prepare('SELECT * FROM dislikes WHERE user_id = ? AND post_id = ?');
+        $dstmt->execute([$userId, $postId]);
+        $disliked = $dstmt->fetch();
+
+        if ($disliked) {
+            // Undislike
+            $dstmt = $pdo->prepare('DELETE FROM dislikes WHERE user_id = ? AND post_id = ?');
+            $dstmt->execute([$userId, $postId]);
+
+            // Like
+            $stmt = $pdo->prepare('INSERT INTO likes (user_id, post_id) VALUES (?, ?)');
+            $stmt->execute([$userId, $postId]);
+        } else {
+            // Like
+            $stmt = $pdo->prepare('INSERT INTO likes (user_id, post_id) VALUES (?, ?)');
+            $stmt->execute([$userId, $postId]);
+        }
+    }
+
+    header('Location: index.php');
+    exit();
+}
+
+// Handle dislike form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dislike_post_id'])) {
+    $postId = $_POST['dislike_post_id'];
+    $userId = $_SESSION['user_id'];
+
+    // Check if the user has already liked the post
+    $dstmt = $pdo->prepare('SELECT * FROM dislikes WHERE user_id = ? AND post_id = ?');
+    $dstmt->execute([$userId, $postId]);
+    $disliked = $dstmt->fetch();
+
+    if ($disliked) {
+        // Undislike
+        $dstmt = $pdo->prepare('DELETE FROM dislikes WHERE user_id = ? AND post_id = ?');
+        $dstmt->execute([$userId, $postId]);
+    } else {
+
+        $stmt = $pdo->prepare('SELECT * FROM likes WHERE user_id = ? AND post_id = ?');
         $stmt->execute([$userId, $postId]);
+        $liked = $stmt->fetch();
+
+        if ($liked) {
+            // Unlike
+            $stmt = $pdo->prepare('DELETE FROM likes WHERE user_id = ? AND post_id = ?');
+            $stmt->execute([$userId, $postId]);
+            // disike
+            $dstmt = $pdo->prepare('INSERT INTO dislikes (user_id, post_id) VALUES (?, ?)');
+            $dstmt->execute([$userId, $postId]);
+        } else {
+            // disike
+            $dstmt = $pdo->prepare('INSERT INTO dislikes (user_id, post_id) VALUES (?, ?)');
+            $dstmt->execute([$userId, $postId]);
+        }
     }
 
     header('Location: index.php');
@@ -69,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['content'])) {
     exit();
 }
 
+//Search Qurey
 $searchQuery = '';
 if (isset($_GET['search'])) {
     $searchQuery = $_GET['search'];
@@ -86,7 +140,7 @@ if (isset($_GET['search'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Daily Storiers - Home</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap/css/mainstyle.css">
 </head>
@@ -103,15 +157,22 @@ if (isset($_GET['search'])) {
                     <input class="form-control searchinput me-2" type="search" placeholder="Search" value="<?php echo htmlspecialchars($searchQuery); ?>" name="search">
                     <button class="btn btn searchbtn" type="submit"><img src="assets/img/searchicon.png" alt=""></button>
                 </form>
-                <span class="navbar-text userdetails">
-                    <a href="logout.php">Logout</a>
-                </span>
-                <span class="navbar-text userdetails">
+                <span class="navbar-text userdetails">Hi,
                     <?php echo htmlspecialchars($_SESSION['username']); ?>
                 </span>
-                <?php if (isset($_SESSION['user_image'])) : ?>
-                    <img class="usersessionimg" src="<?php echo htmlspecialchars($_SESSION['user_image']); ?>" height="50px" alt="">
-                <?php endif; ?>
+                <div class="dropdown">
+                    <?php if (isset($_SESSION['user_image'])) : ?>
+                        <img class="usersessionimg dropdown-toggle" type="button" data-bs-toggle="dropdown" src="<?php echo htmlspecialchars($_SESSION['user_image']); ?>" height="50px" alt="">
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="index.php">Home</a></li>
+                            <li><a class="dropdown-item" href="userprofile.php">Profile</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                        </ul>
+                </div>
+            <?php endif; ?>
             </div>
         </div>
     </nav>
@@ -183,29 +244,47 @@ if (isset($_GET['search'])) {
                     <div class="col-md-12">
                         <div class="row mt-1">
                             <div class="col-md-4">
-                                <?php
-                                $stmt = $pdo->prepare('SELECT COUNT(*) AS like_count FROM likes WHERE post_id = ?');
-                                $stmt->execute([$post['id']]);
-                                $likeCount = $stmt->fetchColumn();
+                                <div class="likedislike">
+                                    <?php
+                                    // likes
+                                    $stmt = $pdo->prepare('SELECT COUNT(*) AS like_count FROM likes WHERE post_id = ?');
+                                    $stmt->execute([$post['id']]);
+                                    $likeCount = $stmt->fetchColumn();
 
-                                $stmt = $pdo->prepare('SELECT COUNT(*) AS comment_count FROM comments WHERE post_id = ?');
-                                $stmt->execute([$post['id']]);
-                                $commentCount = $stmt->fetchColumn();
+                                    $stmt = $pdo->prepare('SELECT COUNT(*) AS comment_count FROM comments WHERE post_id = ?');
+                                    $stmt->execute([$post['id']]);
+                                    $commentCount = $stmt->fetchColumn();
 
-                                $stmt = $pdo->prepare('SELECT * FROM likes WHERE user_id = ? AND post_id = ?');
-                                $stmt->execute([$_SESSION['user_id'], $post['id']]);
-                                $liked = $stmt->fetch();
-                                ?>
-                                <form method="POST" action="index.php" style="display: inline;" id="like-form-<?php echo $post['id']; ?>">
-                                    <input type="hidden" name="like_post_id" value="<?php echo $post['id']; ?>">
-                                    <button class="btn btn postreactbtn like-button w-100" style="color: <?php echo $liked ? 'blue' : 'black'; ?>" data-post-id="<?php echo $post['id']; ?>"><?php echo $liked ? 'Liked' : 'Like'; ?> (<?php echo $likeCount; ?>)</button>
-                                </form>
+                                    $stmt = $pdo->prepare('SELECT * FROM likes WHERE user_id = ? AND post_id = ?');
+                                    $stmt->execute([$_SESSION['user_id'], $post['id']]);
+                                    $liked = $stmt->fetch();
+                                    ?>
+                                    <form method="POST" action="index.php" style="display: inline;" id="like-form-<?php echo $post['id']; ?>">
+                                        <input type="hidden" name="like_post_id" value="<?php echo $post['id']; ?>">
+                                        <button class="btn btn likebtn like-button w-100" style="color: <?php echo $liked ? '#bebbb0' : '#e4e3e0'; ?>" data-post-id="<?php echo $post['id']; ?>"><img src="assets/img/<?php echo $liked ? 'Hliked' : 'Hlike'; ?>.png" alt=""> <span><?php echo $likeCount; ?></span></button>
+                                    </form>
+
+                                    <?php
+                                    // dislikes
+                                    $dstmt = $pdo->prepare('SELECT COUNT(*) AS dislike_count FROM dislikes WHERE post_id = ?');
+                                    $dstmt->execute([$post['id']]);
+                                    $dislikeCount = $dstmt->fetchColumn();
+
+                                    $dstmt = $pdo->prepare('SELECT * FROM dislikes WHERE user_id = ? AND post_id = ?');
+                                    $dstmt->execute([$_SESSION['user_id'], $post['id']]);
+                                    $disliked = $dstmt->fetch();
+                                    ?>
+                                    <form method="POST" action="index.php" style="display: inline;" id="dislike-form-<?php echo $post['id']; ?>">
+                                        <input type="hidden" name="dislike_post_id" value="<?php echo $post['id']; ?>">
+                                        <button class="btn btn dislikebtn like-button w-100" style="color: <?php echo $disliked ? '#bebbb0' : '#e4e3e0'; ?>" data-post-id="<?php echo $post['id']; ?>"><img src="assets/img/<?php echo $disliked ? 'Hdisliked' : 'Hdislike'; ?>.png" alt=""> <span><?php echo $dislikeCount; ?></span></button>
+                                    </form>
+                                </div>
                             </div>
                             <div class="col-md-4">
-                                <button class="btn btn postreactbtn comment-count comment-toggle w-100" data-post-id="<?php echo $post['id']; ?>">Reviews (<?php echo $commentCount; ?>)</button>
+                                <button class="btn btn postcommentbtn comment-count comment-toggle w-100" data-post-id="<?php echo $post['id']; ?>"><img src="assets/img/contribution.png" alt=""> Contributions <span><?php echo $commentCount; ?></span></button>
                             </div>
                             <div class="col-md-4">
-                                <button class="btn btn postreactbtn share-button w-100" data-post-id="<?php echo $post['id']; ?>">Share</button>
+                                <button class="btn btn postcommentbtn share-button w-100" data-post-id="<?php echo $post['id']; ?>"><img src="assets/img/share.png" alt=""> Share</button>
                             </div>
                         </div>
                         <form method="POST" action="index.php" class="share-form" id="share-form-<?php echo $post['id']; ?>" style="display: none;">
@@ -214,9 +293,9 @@ if (isset($_GET['search'])) {
                             <button type="submit">Share</button>
                         </form>
                         <form method="POST" action="index.php" class="comment-form-<?php echo $post['id']; ?> commentform" id="comment-form-<?php echo $post['id']; ?>" style="display: none;">
-                            <textarea name="comment_content" placeholder="Write a Review..." required></textarea>
+                            <textarea name="comment_content" placeholder="Write something..." required></textarea>
                             <input type="hidden" name="comment_post_id" value="<?php echo $post['id']; ?>">
-                            <button type="submit">Reviews</button>
+                            <button type="submit">Add Contribution </button>
                         </form>
                         <div id="comments-<?php echo $post['id']; ?>" class="commentsection" style="display: none;">
                             <?php
@@ -259,7 +338,7 @@ if (isset($_GET['search'])) {
                 </div>
             <?php endforeach; ?>
         <?php else : ?>
-            <p>No posts found.</p>
+            <p class="nopostfound">Sorry, No posts found.</p>
         <?php endif; ?>
     </div>
 

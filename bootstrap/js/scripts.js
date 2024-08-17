@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         event.preventDefault();
                         const content = this.querySelector('textarea').value;
                         const xhr = new XMLHttpRequest();
-                        xhr.open('POST', 'reply_ajax.php', true);
+                        xhr.open('POST', 'includes/reply_ajax.php', true);
                         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                         xhr.onload = function () {
                             if (xhr.status === 200) {
