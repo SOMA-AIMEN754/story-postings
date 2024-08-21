@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" action="register.php" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12">
-                        <input class="w-100 mt-3" type="text" name="username" id="" placeholder="Username" required>
+                        <input class="w-100 mt-3" type="text" name="username" id="" placeholder="Full Name" required>
                     </div>
                     <div class="col-md-12">
                         <input class="w-100 mt-3" type="email" name="email" id="" placeholder="Email" required>
@@ -60,8 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="col-md-12">
                         <input class="w-100 mt-3" type="password" name="password" id="" placeholder="password" required>
                     </div>
-                    <div class="col-md-12">
-                        <input class="w-100 mt-3" type="file" name="image" id="" placeholder="image" required>
+                    <div class="col-md-11 pb-0">
+                        <p class= "mb-0" style="margin-left: 5px"> Profile Pic:</p>
+                        <input class="w-100 mt-0 pb-0" type="file" name="image" id="" placeholder="image" required>
                     </div>
                     <div class="col-md-12">
                         <button class="w-100 mt-3" type="submit">Register</button>

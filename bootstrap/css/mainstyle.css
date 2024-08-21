@@ -1,27 +1,31 @@
 body {
-    background-color: #dcdcdc;
+    background-color: #24182e;
 }
 
 nav {
-    border-bottom: 2px solid #737f7d;
-    background-color: #dcdcdc;
+    border-bottom: 2px solid #fce5d5;
+    background-color: #ca1f3f;
     padding-top: 20px !important;
     padding-bottom: 20px !important;
 }
+.navbar-brand{
+    color: #fce5d5 !important;
+}
 
 .searchinput {
-    background-color: #0b0e61;
+    background-color: #ffbe00;
+    border: none;
     color: #fff;
 }
 
 .searchinput:active {
-    background-color: #272976;
-    color: #fff;
+    background-color: #fce5d5;
+    color: #ca1f3f;
 }
 
 .searchinput:focus {
-    background-color: #272976;
-    color: #fff;
+    background-color: #fce5d5;
+    color: #ca1f3f;
 }
 
 .searchinput::placeholder {
@@ -29,11 +33,14 @@ nav {
 }
 
 .searchbtn {
-    background-color: #0b0e61;
+    background-color: #ffbe00;
 }
 
 .searchbtn:hover {
-    background-color: #272976;
+    background-color: #e0be55;
+}
+.searchbtn:active {
+    background-color: #e0be55;
 }
 
 .searchbtn img {
@@ -41,10 +48,13 @@ nav {
 }
 
 .userdetails {
-    color: #0b0e61;
+    color: #fce5d5;
     font-weight: 700;
     font-size: 16px;
     margin-right: 25px;
+}
+.userdetails a{
+    text-decoration: none;
 }
 
 .usersessionimg {
@@ -52,9 +62,34 @@ nav {
     width: 55px;
     border-radius: 50%;
 }
+.dropdown-menu{
+    background-color: #ffbe00;
+    border: #fce5d5 !important;
+}
+.dropdown-item{
+    color: #25182e;
+}
+.dropdown-item:active{
+    background-color: #25182e;
+    color: #fce5d5;
+}
+.dropdown-item:hover{
+    background-color: #ca1f3f;
+    color: #fce5d5;
+}
+.dropdown-divider{
+    background-color: #25182e;
+}
+
+.nopostfound{
+    color: #fce5d5;
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 20px;
+}
 
 .postform textarea {
-    background-color: #bebbb0;
+    background-color: #fce5d5;
     border: none;
     border-radius: 5px;
     padding: 20px;
@@ -62,164 +97,339 @@ nav {
 }
 
 .postform textarea:focus {
-    background-color: #bebbb0;
+    background-color: #fce5d5;
     border: none !important;
     border-radius: 5px;
     width: 100%;
 }
 
 .postform textarea:active {
-    background-color: #bebbb0 !important;
-    border: none;
+    background-color: #fce5d5 !important;
+    border: none !important;
     border-radius: 5px;
     width: 100%;
 }
 
 .postform .postbtn {
-    background-color: #737f7d;
-    color: #e5e4e3;
+    background-color: #ca1f3f;
+    color: #fce5d5;
     font-weight: 600;
 }
+
 .postform .postbtn:hover {
-    background-color: #737f7daa;
-    color: #e5e4e3;
+    background-color: #d73351;
+    color: #fce5d5;
     font-weight: 600;
 }
 
 .postings hr {
-    border: 2px solid #737f7d;
+    border: 2px solid #fce5d5;
 
 }
-.heading{
-    color: #0b0e61;
+
+.heading {
+    color: #fce5d5;
 }
-.postuserdetails{
-    background-color: #737f7d;
+
+.postuserdetails {
+    background-color: #ca1f3f;
     padding: 10px;
     border-radius: 5px;
-    color: #fff;
+    color: #fce5d5;
 }
-.postuserdetails img{
+
+.postuserdetails img {
     height: 45px;
     width: 45px;
     border-radius: 50%;
     margin-right: 10px;
 }
-.postcontent{
-    background-color: #bebbb0;
+
+.postcontent {
+    background-color: #fce5d5;
     border: none;
     border-radius: 5px;
     margin-top: 5px;
     padding: 25px;
-    color: #737f7d;
+    color: #25182e;
 }
-.postcontent{
+
+.postcontent {
     font-weight: 500;
     font-size: 17px;
 }
-.postreactbtn{
-    background-color: #737f7d;
-    color: #e5e4e3;
-    font-weight: 600;
-}
-.postreactbtn:hover{
-    background-color: #737f7daa;
-    color: #e5e4e3;
+
+.postcommentbtn {
+    background-color: #ca1f3f;
+    color: #fce5d5;
     font-weight: 600;
 }
 
-.loginmaindiv{
+.postcommentbtn:hover {
+    background-color: #d73351;
+    color: #e5e4e3;
+    font-weight: 600;
+}
+.postcommentbtn img{
+    height: 30px;
+}
+.postcommentbtn span{
+    font-size: 12px;
+}
+
+.likedislike {
+    display: flex;
+    justify-content: center;
+    /* font-weight: 800 !important; */
+    border: none;
+    border-radius: 5px;
+    background-color: #ca1f3f;
+    color: #e5e4e3;
+}
+
+.likedislik:hover {
+    background-color: #d73351;
+    color: #e5e4e3;
+}
+
+.likebtn span{
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.likebtn img {
+    height: 30px;
+}
+
+.likebtn img:hover {
+    animation-name: likerotate;
+    animation-duration: 0.5s;
+    /* Specify the duration of the animation */
+    animation-timing-function: ease-in-out;
+    /* Optional: add timing function for smoother animation */
+    animation-fill-mode: forwards;
+    /* Optional: keep the final state of the animation */
+}
+
+@keyframes likerotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-8deg);
+        scale: 1.3
+    }
+}
+
+.dislikedislike {
+    display: flex;
+    justify-content: center;
+    /* font-weight: 600 !important; */
+    border: none;
+    border-radius: 5px;
+    background-color: #737f7d;
+    color: #e5e4e3;
+}
+
+.dislikedislik:hover {
+    background-color: #41726aaa;
+    color: #e5e4e3;
+}
+
+.dislikebtn span{
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.dislikebtn img {
+    height: 30px;
+}
+
+.dislikebtn img:hover {
+    animation-name: dislikerotate;
+    animation-duration: 0.5s;
+    /* Specify the duration of the animation */
+    animation-timing-function: ease-in-out;
+    /* Optional: add timing function for smoother animation */
+    animation-fill-mode: forwards;
+    /* Optional: keep the final state of the animation */
+}
+
+@keyframes dislikerotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(8deg);
+        scale: 1.3
+    }
+}
+
+.loginmaindiv {
     height: 100vh;
     width: 100vw;
 }
-.loginformdiv{
+
+.loginformdiv {
     border: none;
     border-radius: 5px;
     width: 500px !important;
-    background-color: #bebbb0;
-    color: #fff;
+    background-color: #fce5d5;
+    color: #25182e;
 }
-.loginformdiv input{
+
+.loginformdiv input {
     padding: 10px;
     border-radius: 10px;
     border: none;
 }
-.loginformdiv input:focus{
+
+.loginformdiv input:focus {
     border: none;
 }
-.loginformdiv input:active{
+
+.loginformdiv input:active {
     border: none;
 }
-.loginformdiv button{
+
+.loginformdiv button {
     padding: 10px;
     border-radius: 10px;
     border: none;
-    background-color: #737f7d;
+    background-color: #ca1f3f;
     font-weight: 600;
     color: #fff;
 }
-.loginformdiv button:hover{
-    background-color: #737f7daa;
+
+.loginformdiv button:hover {
+    background-color: #d73351;
 }
-.commentsection{
-    border: 1px solid #737f7d;
+
+.commentsection {
+    border: 1px solid #fce5d5;
     margin: 20px;
     padding: 10px;
 }
-.commentsection textarea{
+
+.commentsection textarea {
     background-color: #bebbb0;
     border: none;
     border-radius: 5px;
     padding: 10px;
     width: 100%;
 }
-.commentsection button{
-    background-color: #737f7d;
+
+.commentsection button {
+    background-color: #ca1f3f;
+    color: #fce5d5;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+
+.reply-form {
+    padding: 20px;
+}
+
+.commentform {
+    padding: 20px;
+}
+
+.commentform textarea {
+    background-color: #fce5d5;
+    border: none;
+    color: #24182e;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+.commentform button {
+    background-color: #ca1f3f;
     color: #e5e4e3;
     font-weight: 600;
     border: none;
     border-radius: 5px;
     padding: 5px 15px;
 }
-.reply-form{
+
+.share-form {
     padding: 20px;
 }
-.commentform{
-    padding: 20px;
-}
-.commentform textarea{
-    background-color: #bebbb0;
+
+.share-form textarea {
+    background-color: #fce5d5;
     border: none;
     border-radius: 5px;
     padding: 10px;
     width: 100%;
 }
-.commentform button{
-    background-color: #737f7d;
+
+.share-form button {
+    background-color: #ca1f3f;
     color: #e5e4e3;
     font-weight: 600;
     border: none;
     border-radius: 5px;
     padding: 5px 15px;
 }
-.share-form{
-    padding: 20px;
-}
-.share-form textarea{
-    background-color: #bebbb0;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%;
-}
-.share-form button{
-    background-color: #737f7d;
-    color: #e5e4e3;
-    font-weight: 600;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 15px;
-}
-.usersreviews{
+
+.usersreviews {
     padding: 5px;
+    color: #fce5d5;
+}
+
+
+/* userprofile page */
+
+.userprofilecard{
+    background-color: #e5e4e3;
+    border: none;
+    border-radius: 10px;
+    box-shadow: rgba(180, 180, 201, 0.25) 0px 50px 100px -20px, rgba(201, 170, 170, 0.3) 0px 30px 60px -30px, rgba(166, 187, 209, 0.35) 0px -2px 6px 0px inset;
+}
+.userprofileimg{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+}
+.upitem{
+    padding: 15px;
+    background-color: #ca1f3f;
+    border-radius: 2px;
+    border-bottom: 2px #e5e4dd;
+}
+.upitem a{
+    color: #e5e4e3;
+    text-decoration: none;
+    font-weight: 600;
+}
+.userprofileitems .active {
+    background-color: #25182e;
+    animation-name: userprofileitemactive;
+    animation-duration: 0.5s; 
+    animation-timing-function: ease-in-out; 
+    animation-fill-mode: forwards; 
+}
+
+@keyframes userprofileitemactive {
+    0% {
+        margin: 0;
+    }
+    100% {
+        margin-left: -20px;
+    }
+}
+
+.userprofileitems .upitem:hover{
+    background-color: #ffbe00;
+    transition: 0.5s;
+}
+.userprofilepic{
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
 }

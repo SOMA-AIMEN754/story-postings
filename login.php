@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
+        $_SESSION['useremail'] = $user['email'];
         $_SESSION['user_image'] = $user['image'];
         header('Location: index.php');
         exit();
@@ -38,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" action="login.php">
                 <div class="row">
                     <div class="col-md-12">
-                        <input class="w-100 mt-3" type="text" name="username_or_email" id="" placeholder="Username or Email">
+                        <input class="w-100 mt-3" type="text" name="username_or_email" id="" placeholder="Full Name or Email">
                     </div>
                     <div class="col-md-12">
                         <input class="w-100 mt-3" type="password" name="password" id="" placeholder="password">
