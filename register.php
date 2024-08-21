@@ -60,9 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="col-md-12">
                         <input class="w-100 mt-3" type="password" name="password" id="" placeholder="password" required>
                     </div>
-                    <div class="col-md-11 pb-0">
+                    <div class="col-md-12">
                         <p class= "mb-0" style="margin-left: 5px"> Profile Pic:</p>
-                        <input class="w-100 mt-0 pb-0" type="file" name="image" id="" placeholder="image" required>
+                        <input class="w-100 mt-0  bg-white" type="file" name="image" id="" placeholder="image" required>
                     </div>
                     <div class="col-md-12">
                         <button class="w-100 mt-3" type="submit">Register</button>
